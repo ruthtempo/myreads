@@ -1,7 +1,10 @@
 import { ShelfChanger } from "./ShelfChanger";
 
-export const Book = ({ myBook, searchBook }) => {
-  console.log("myBook", myBook);
+export const Book = ({ book, myReads }) => {
+  const hasThumbnail = book.imageLinks ? book.imageLinks.thumbnail : "";
+  const currentShelf = book.shelf ? book.shelf : "none";
+  console.log("book", book);
+
   return (
     <div className="book">
       <div className="book-top">
@@ -10,13 +13,16 @@ export const Book = ({ myBook, searchBook }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url( "${myBook.imageLinks.thumbnail}")`,
+            backgroundImage: `url( "${hasThumbnail}")`,
           }}
         ></div>
-        <ShelfChanger />
+        <ShelfChanger myReads={myReads} currentShelf={currentShelf} />
       </div>
-      <div className="book-title">{myBook.title}</div>
-      <div className="book-authors">{myBook.authors}</div>
+      <div className="book-title">{book.title}</div>
+      <div className="book-authors">
+        {book.authors &&
+          book.authors.map((author) => <p key={author}>{author}</p>)}
+      </div>
     </div>
   );
 };

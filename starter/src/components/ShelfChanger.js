@@ -1,8 +1,16 @@
-export const ShelfChanger = () => {
+import { useState } from "react";
+
+export const ShelfChanger = ({ myReads, currentShelf }) => {
+  const [current, setCurrent] = useState(currentShelf);
+
+  const handleChange = (e) => {
+    setCurrent(e.target.value);
+  };
+
   return (
     <div className="book-shelf-changer">
-      <select>
-        <option value="none" disabled>
+      <select value={current} onChange={handleChange}>
+        <option value="nada" disabled>
           Move to...
         </option>
         <option value="currentlyReading">Currently Reading</option>
