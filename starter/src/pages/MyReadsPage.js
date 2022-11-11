@@ -17,9 +17,9 @@ export const MyReadsPage = ({ myReadsLibrary }) => {
       </div>
       <div className="list-books-content">
         <div>
-          <Shelf books={currentlyReading} />
-          <Shelf books={wantToRead} />
-          <Shelf books={readBooks} />
+          <Shelf books={currentlyReading} title={"Currently Reading"} />
+          <Shelf books={wantToRead} title={"Want to Read"} />
+          <Shelf books={readBooks} title={"Read"} />
         </div>
       </div>
       <SearchButton />
