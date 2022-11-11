@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { search } from "../BooksAPI";
 import { Book } from "../components/Book";
+import { BookSearched } from "../components/BookSearched";
 
-export const SearchPage = ({ library }) => {
+export const SearchPage = ({ myReadsLibrary }) => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log(searchResults);
   const handleQuery = (event) => {
     setQuery(event.target.value);
   };
@@ -40,7 +40,7 @@ export const SearchPage = ({ library }) => {
           {searchResults.length > 0 &&
             searchResults.map((book) => (
               <li key={book.id}>
-                <Book book={book} />
+                <BookSearched book={book} myReads={myReadsLibrary} />
               </li>
             ))}
         </ol>

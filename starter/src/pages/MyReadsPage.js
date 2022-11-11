@@ -1,16 +1,14 @@
 import { Shelf } from "../components/Shelf";
 import { SearchButton } from "../components/SearchButton";
 
-export const MyReadsPage = ({ library }) => {
-  const currentlyReading = library.filter(
+export const MyReadsPage = ({ myReadsLibrary }) => {
+  const currentlyReading = myReadsLibrary.filter(
     (book) => book.shelf === "currentlyReading"
   );
-  const wantToRead = library.filter((book) => book.shelf === "wantToRead");
-  const readBooks = library.filter((book) => book.shelf === "read");
-
-  console.log("currently", currentlyReading);
-  console.log("wanto", wantToRead);
-  console.log("read", readBooks);
+  const wantToRead = myReadsLibrary.filter(
+    (book) => book.shelf === "wantToRead"
+  );
+  const readBooks = myReadsLibrary.filter((book) => book.shelf === "read");
 
   return (
     <div className="list-books">
