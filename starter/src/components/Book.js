@@ -1,4 +1,5 @@
 import { ShelfChanger } from "./ShelfChanger";
+import PropTypes from "prop-types";
 
 export const Book = ({ book, myReads }) => {
   const hasThumbnail = book.imageLinks ? book.imageLinks.thumbnail : "";
@@ -25,4 +26,8 @@ export const Book = ({ book, myReads }) => {
       </div>
     </div>
   );
+};
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
 };

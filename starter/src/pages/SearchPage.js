@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { search } from "../BooksAPI";
 import { Book } from "../components/Book";
-import { BookSearched } from "../components/BookSearched";
+import PropTypes from "prop-types";
 
 export const SearchPage = ({ myReadsLibrary }) => {
   const [query, setQuery] = useState("");
@@ -40,11 +40,15 @@ export const SearchPage = ({ myReadsLibrary }) => {
           {searchResults.length > 0 &&
             searchResults.map((book) => (
               <li key={book.id}>
-                <BookSearched book={book} myReads={myReadsLibrary} />
+                <Book book={book} myReads={myReadsLibrary} />
               </li>
             ))}
         </ol>
       </div>
     </div>
   );
+};
+
+SearchPage.propTypes = {
+  myReadsLibrary: PropTypes.array.isRequired,
 };

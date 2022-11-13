@@ -1,5 +1,6 @@
 import { Shelf } from "../components/Shelf";
 import { SearchButton } from "../components/SearchButton";
+import PropTypes from "prop-types";
 
 export const MyReadsPage = ({ myReadsLibrary }) => {
   const currentlyReading = myReadsLibrary.filter(
@@ -25,4 +26,8 @@ export const MyReadsPage = ({ myReadsLibrary }) => {
       <SearchButton />
     </div>
   );
+};
+
+MyReadsPage.propTypes = {
+  myReadsLibrary: PropTypes.array.isRequired,
 };
