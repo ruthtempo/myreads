@@ -1,10 +1,9 @@
 import { ShelfChanger } from "./ShelfChanger";
 import PropTypes from "prop-types";
 
-export const Book = ({ book, myReads }) => {
+export const Book = ({ book, upsertBook }) => {
   const hasThumbnail = book.imageLinks ? book.imageLinks.thumbnail : "";
   const currentShelf = book.shelf ? book.shelf : "none";
-  console.log("book", book);
 
   return (
     <div className="book">
@@ -17,7 +16,11 @@ export const Book = ({ book, myReads }) => {
             backgroundImage: `url( "${hasThumbnail}")`,
           }}
         ></div>
-        <ShelfChanger myReads={myReads} currentShelf={currentShelf} />
+        <ShelfChanger
+          currentShelf={currentShelf}
+          book={book}
+          upsertBook={upsertBook}
+        />
       </div>
       <div className="book-title">{book.title}</div>
       <div className="book-authors">
@@ -30,4 +33,5 @@ export const Book = ({ book, myReads }) => {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
+  upsertBook: PropTypes.func.isRequired,
 };

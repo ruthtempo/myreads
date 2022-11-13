@@ -2,7 +2,7 @@ import { Shelf } from "../components/Shelf";
 import { SearchButton } from "../components/SearchButton";
 import PropTypes from "prop-types";
 
-export const MyReadsPage = ({ myReadsLibrary }) => {
+export const MyReadsPage = ({ myReadsLibrary, upsertBook }) => {
   const currentlyReading = myReadsLibrary.filter(
     (book) => book.shelf === "currentlyReading"
   );
@@ -18,9 +18,17 @@ export const MyReadsPage = ({ myReadsLibrary }) => {
       </div>
       <div className="list-books-content">
         <div>
-          <Shelf books={currentlyReading} title={"Currently Reading"} />
-          <Shelf books={wantToRead} title={"Want to Read"} />
-          <Shelf books={readBooks} title={"Read"} />
+          <Shelf
+            books={currentlyReading}
+            title={"Currently Reading"}
+            upsertBook={upsertBook}
+          />
+          <Shelf
+            books={wantToRead}
+            title={"Want to Read"}
+            upsertBook={upsertBook}
+          />
+          <Shelf books={readBooks} title={"Read"} upsertBook={upsertBook} />
         </div>
       </div>
       <SearchButton />
@@ -30,4 +38,5 @@ export const MyReadsPage = ({ myReadsLibrary }) => {
 
 MyReadsPage.propTypes = {
   myReadsLibrary: PropTypes.array.isRequired,
+  upsertBook: PropTypes.func.isRequired,
 };

@@ -1,15 +1,13 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 
-export const ShelfChanger = ({ myReads, currentShelf }) => {
-  const [current, setCurrent] = useState(currentShelf);
-
+export const ShelfChanger = ({ currentShelf, book, upsertBook }) => {
   const handleChange = (e) => {
-    setCurrent(e.target.value);
+    upsertBook(book, e.target.value);
   };
 
   return (
     <div className="book-shelf-changer">
-      <select value={current} onChange={handleChange}>
+      <select value={currentShelf} onChange={handleChange}>
         <option value="nada" disabled>
           Move to...
         </option>
@@ -20,4 +18,10 @@ export const ShelfChanger = ({ myReads, currentShelf }) => {
       </select>
     </div>
   );
+};
+
+ShelfChanger.propTypes = {
+  currentShelf: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
+  upsertBook: PropTypes.func.isRequired,
 };

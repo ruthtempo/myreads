@@ -4,7 +4,7 @@ import { search } from "../BooksAPI";
 import { Book } from "../components/Book";
 import PropTypes from "prop-types";
 
-export const SearchPage = ({ myReadsLibrary }) => {
+export const SearchPage = ({ upsertBook }) => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const handleQuery = (event) => {
@@ -40,7 +40,7 @@ export const SearchPage = ({ myReadsLibrary }) => {
           {searchResults.length > 0 &&
             searchResults.map((book) => (
               <li key={book.id}>
-                <Book book={book} myReads={myReadsLibrary} />
+                <Book book={book} upsertBook={upsertBook} />
               </li>
             ))}
         </ol>
@@ -50,5 +50,5 @@ export const SearchPage = ({ myReadsLibrary }) => {
 };
 
 SearchPage.propTypes = {
-  myReadsLibrary: PropTypes.array.isRequired,
+  upsertBook: PropTypes.func.isRequired,
 };
