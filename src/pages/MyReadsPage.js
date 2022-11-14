@@ -11,6 +11,18 @@ export const MyReadsPage = ({ myReadsLibrary, upsertBook }) => {
   );
   const readBooks = myReadsLibrary.filter((book) => book.shelf === "read");
 
+  const shelves = [
+    {
+      books: currentlyReading,
+      title: "Currently Reading",
+    },
+    { books: wantToRead, title: "Want to Read" },
+    {
+      books: readBooks,
+      title: "Read",
+    },
+  ];
+
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -18,17 +30,13 @@ export const MyReadsPage = ({ myReadsLibrary, upsertBook }) => {
       </div>
       <div className="list-books-content">
         <div>
-          <Shelf
-            books={currentlyReading}
-            title={"Currently Reading"}
-            upsertBook={upsertBook}
-          />
-          <Shelf
-            books={wantToRead}
-            title={"Want to Read"}
-            upsertBook={upsertBook}
-          />
-          <Shelf books={readBooks} title={"Read"} upsertBook={upsertBook} />
+          {shelves.map((shelf) => (
+            <Shelf
+              books={shelf.books}
+              title={shelf.title}
+              upsertBook={upsertBook}
+            />
+          ))}
         </div>
       </div>
       <SearchButton />
