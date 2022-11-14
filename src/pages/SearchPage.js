@@ -10,6 +10,16 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
   const handleQuery = (event) => {
     setQuery(event.target.value);
   };
+  const setDefaultShelf = (searchedBooks, myBooks) => {
+    return searchedBooks.map((searchedBook) => {
+      for (let i = 0; i < myBooks.length; i++) {
+        if (myBooks[i].id === searchedBook.id) {
+          return { ...searchedBook, shelf: myBooks[i].shelf };
+        }
+      }
+      return { ...searchedBook, shelf: "none" };
+    });
+  };
 
   useEffect(() => {
     search(query, 10)
@@ -21,18 +31,7 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
             )
       )
       .catch((err) => console.log("search error", err));
-  }, [query]);
-
-  const setDefaultShelf = (searchedBooks, myBooks) => {
-    return searchedBooks.map((searchedBook) => {
-      for (let i = 0; i < myBooks.length; i++) {
-        if (myBooks[i].id === searchedBook.id) {
-          return { ...searchedBook, shelf: myBooks[i].shelf };
-        }
-      }
-      return { ...searchedBook, shelf: "none" };
-    });
-  };
+  }, [query, myReadsLibrary]);
 
   return (
     <div className="search-books">
