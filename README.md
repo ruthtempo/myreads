@@ -41,6 +41,6 @@ To get started developing right away:
     │   └── arrow-drop-down.svg
     ├── index.css
     └── index.js
-    └──Wireframe.jpeg # simepl visual formulation of app structura created with figma
+    └── wireframe.jpeg # simepl visual formulation of app structura created with figma
 
 ```
