@@ -4,7 +4,7 @@ import { search } from "../BooksAPI";
 import { Book } from "../components/Book";
 import PropTypes from "prop-types";
 
-export const SearchPage = ({ upsertBook }) => {
+export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const handleQuery = (event) => {
@@ -14,10 +14,25 @@ export const SearchPage = ({ upsertBook }) => {
   useEffect(() => {
     search(query, 10)
       .then((results) =>
-        results.error ? setSearchResults([]) : setSearchResults(results)
+        results.error
+          ? setSearchResults([])
+          : setSearchResults(
+              setDefaultShelf(results, myReadsLibrary) //returns new array made of combining the books in myReads and search ( to track the shelves they are in)
+            )
       )
       .catch((err) => console.log("search error", err));
   }, [query]);
+
+  const setDefaultShelf = (searchedBooks, myBooks) => {
+    return searchedBooks.map((searchedBook) => {
+      for (let i = 0; i < myBooks.length; i++) {
+        if (myBooks[i].id === searchedBook.id) {
+          return { ...searchedBook, shelf: myBooks[i].shelf };
+        }
+      }
+      return { ...searchedBook, shelf: "none" };
+    });
+  };
 
   return (
     <div className="search-books">
@@ -28,7 +43,7 @@ export const SearchPage = ({ upsertBook }) => {
         <div className="search-books-input-wrapper">
           <input
             type="text"
-            placeholder="Search by title, author, or ISBN"
+            placeholder="Search by title"
             value={query}
             onChange={handleQuery}
           />
@@ -40,7 +55,11 @@ export const SearchPage = ({ upsertBook }) => {
           {searchResults.length > 0 &&
             searchResults.map((book) => (
               <li key={book.id}>
-                <Book book={book} upsertBook={upsertBook} />
+                <Book
+                  book={book}
+                  upsertBook={upsertBook}
+                  myReadsLibrary={myReadsLibrary}
+                />
               </li>
             ))}
         </ol>
@@ -51,4 +70,5 @@ export const SearchPage = ({ upsertBook }) => {
 
 SearchPage.propTypes = {
   upsertBook: PropTypes.func.isRequired,
+  myReadsLibrary: PropTypes.array.isRequired,
 };

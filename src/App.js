@@ -53,7 +53,15 @@ function App() {
             />
           }
         />
-        <Route path="search" element={<SearchPage upsertBook={upsertBook} />} />
+        <Route
+          path="search"
+          element={
+            <SearchPage
+              upsertBook={upsertBook}
+              myReadsLibrary={myReadsLibrary}
+            />
+          }
+        />
       </Routes>
     </div>
   );
