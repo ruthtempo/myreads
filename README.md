@@ -44,3 +44,5 @@ To get started developing right away:
     └── wireframe.jpeg # simepl visual formulation of app structura created with figma
 
 ```
+
+##Future implementations : Drag & Drop
