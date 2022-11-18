@@ -3,7 +3,7 @@
 This is the final assessment project for Udacity's React Fundamentals course.
 MyReads is a book tracking app that allows you to perform book title searches, add/move/remove books to/from different shelves.
 
-## TL;DR
+## Start the project
 
 To get started developing right away:
 
@@ -45,4 +45,6 @@ To get started developing right away:
 
 ```
 
-## Future implementations : Drag & Drop
+## Future implementations :
+
+- Drag & Drop
