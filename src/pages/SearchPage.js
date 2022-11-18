@@ -22,16 +22,22 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
   };
 
   useEffect(() => {
-    search(query, 10)
-      .then((results) =>
-        results.error
-          ? setSearchResults([])
-          : setSearchResults(
-              setDefaultShelf(results, myReadsLibrary) //returns new array made of combining the books in myReads and search ( to track the shelves they are in)
-            )
-      )
-      .catch((err) => console.log("search error", err));
+    if (query) {
+      search(query, 10)
+        .then((results) =>
+          results.error
+            ? setSearchResults([])
+            : setSearchResults(
+                setDefaultShelf(results, myReadsLibrary) //returns new array made of combining the books in myReads and search ( to track the shelves they are in)
+              )
+        )
+        .catch((err) => console.log("search error", err));
+    } else {
+      setSearchResults([]);
+    }
   }, [query, myReadsLibrary]);
+
+  console.log("results", searchResults);
 
   return (
     <div className="search-books">
@@ -51,16 +57,19 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
 
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchResults.length > 0 &&
-            searchResults.map((book) => (
-              <li key={book.id}>
-                <Book
-                  book={book}
-                  upsertBook={upsertBook}
-                  myReadsLibrary={myReadsLibrary}
-                />
-              </li>
-            ))}
+          {query && searchResults.length > 0
+            ? searchResults?.map((book) => (
+                <li key={book.id}>
+                  <Book
+                    book={book}
+                    upsertBook={upsertBook}
+                    myReadsLibrary={myReadsLibrary}
+                  />
+                </li>
+              ))
+            : query && searchResults.length === 0
+            ? "No matches for this search"
+            : ""}
         </ol>
       </div>
     </div>

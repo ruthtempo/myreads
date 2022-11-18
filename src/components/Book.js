@@ -2,7 +2,7 @@ import { ShelfChanger } from "./ShelfChanger";
 import PropTypes from "prop-types";
 
 export const Book = ({ book, upsertBook }) => {
-  const hasThumbnail = book.imageLinks ? book.imageLinks.thumbnail : "";
+  const thumbnailURL = book.imageLinks ? book.imageLinks.thumbnail : "";
 
   return (
     <div className="book">
@@ -12,15 +12,18 @@ export const Book = ({ book, upsertBook }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url( "${hasThumbnail}")`,
+            backgroundImage: thumbnailURL
+              ? `url( "${thumbnailURL}")`
+              : undefined,
           }}
         ></div>
         <ShelfChanger book={book} upsertBook={upsertBook} />
       </div>
       <div className="book-title">{book.title}</div>
       <div className="book-authors">
-        {book.authors &&
-          book.authors.map((author) => <p key={author}>{author}</p>)}
+        {book.authors?.map((author) => (
+          <p key={author}>{author}</p>
+        ))}
       </div>
     </div>
   );

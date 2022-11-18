@@ -12,12 +12,10 @@ export const MyReadsPage = ({ myReadsLibrary, upsertBook }) => {
   const readBooks = myReadsLibrary.filter((book) => book.shelf === "read");
 
   const shelves = [
+    { id: 1, books: currentlyReading, title: "Currently Reading" },
+    { id: 2, books: wantToRead, title: "Want to Read" },
     {
-      books: currentlyReading,
-      title: "Currently Reading",
-    },
-    { books: wantToRead, title: "Want to Read" },
-    {
+      id: 3,
       books: readBooks,
       title: "Read",
     },
@@ -32,6 +30,7 @@ export const MyReadsPage = ({ myReadsLibrary, upsertBook }) => {
         <div>
           {shelves.map((shelf) => (
             <Shelf
+              key={shelf.id}
               books={shelf.books}
               title={shelf.title}
               upsertBook={upsertBook}
