@@ -21,23 +21,25 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
     });
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (query) {
+      setIsLoading(true);
       search(query, 10)
-        .then((results) =>
+        .then((results) => {
+          setIsLoading(false);
           results.error
             ? setSearchResults([])
             : setSearchResults(
                 setDefaultShelf(results, myReadsLibrary) //returns new array made of combining the books in myReads and search ( to track the shelves they are in)
-              )
-        )
+              );
+        })
         .catch((err) => console.log("search error", err));
     } else {
       setSearchResults([]);
     }
   }, [query, myReadsLibrary]);
-
-  console.log("results", searchResults);
 
   return (
     <div className="search-books">
@@ -67,7 +69,7 @@ export const SearchPage = ({ upsertBook, myReadsLibrary }) => {
                   />
                 </li>
               ))
-            : query && searchResults.length === 0
+            : !isLoading && searchResults.length === 0 && query
             ? "No matches for this search"
             : ""}
         </ol>
